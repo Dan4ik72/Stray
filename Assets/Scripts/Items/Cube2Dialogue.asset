@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c3188b1888f7f44acd51dd367fe986, type: 3}
+  m_Name: Cube2Dialogue
+  m_EditorClassIdentifier: 
+  _lines:
+  - _name: Cube
+    _line: HI tehre
+  - _name: Cat
+    _line: hi
+  - _name: Cube
+    _line: 'i''m glad to see you over here again
+
+'
+  - _name: Cube
+    _line: 'i''m glad to see you over here again
+
+'

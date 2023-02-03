@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMover))]
+[RequireComponent(typeof(PlayerMover) , (typeof(PlayerJumper)))]
 public class PlayerInputHandler : MonoBehaviour
 {
     [SerializeField] private InteractionCatcher _interactionCatcher;
 
     private PlayerInputMap _playerInput;
     private PlayerMover _playerMover;
+    private PlayerJumper _playerJumper;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInput.CharacterController.Interact.performed += ctx => _interactionCatcher.OnInteract();
 
         _playerMover = GetComponent<PlayerMover>();
+        _playerJumper = GetComponent<PlayerJumper>();
     }
 
     private void OnEnable()
@@ -49,6 +51,6 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnJump()
     {
-        _playerMover.Jump();
+        _playerJumper.Jump();
     }
 }

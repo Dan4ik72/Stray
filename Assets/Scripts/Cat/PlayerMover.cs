@@ -6,10 +6,8 @@ public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private PlayerInputHandler _input;
     [SerializeField] private Transform _camera;
-    [SerializeField] private GroundChecker _groundChecker;
 
     [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _jumpForce;
     [SerializeField] private float _runSpeed;
     [SerializeField] private float _smoothRotationTime = 0.2f;
 
@@ -23,10 +21,21 @@ public class PlayerMover : MonoBehaviour
     private float _targetYRotateAngle;
 
     public float CurrentSpeed => _currentSpeed.magnitude;
+    public float DefaultMoveSpeed { get; private set; }
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+
+        DefaultMoveSpeed = _moveSpeed;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        if (speed < 0)
+            return;
+
+        _moveSpeed = speed;
     }
 
     public void Move(Vector3 direction)
@@ -51,10 +60,6 @@ public class PlayerMover : MonoBehaviour
 
         float smoothRotationAngle = Mathf.SmoothDampAngle(transform.localEulerAngles.y, _targetYRotateAngle, ref _smoothRotationVelocity, _smoothRotationTime);
 
-        /* probably I should rework this stuff
-        _rigidbody.MoveRotation(Quaternion.Euler(_surfaceSlider.GetSurfaceEulerRotation().x, smoothRotationAngle,_surfaceSlider.GetSurfaceEulerRotation().z));
-        */
-
         _rigidbody.MoveRotation(Quaternion.Euler(0f, smoothRotationAngle, 0f));
     }
 
@@ -63,18 +68,5 @@ public class PlayerMover : MonoBehaviour
         Rotate();
 
         _currentSpeed = new Vector2(_rigidbody.velocity.x, _rigidbody.velocity.z);
-
-        if (_groundChecker.IsOnTheGround)
-            _rigidbody.drag = 20f;
-        else
-            _rigidbody.drag = 0;
-    }
-
-    public void Jump()
-    {        
-        if (_groundChecker.IsOnTheGround)
-        {
-            _rigidbody.velocity += new Vector3(0, _jumpForce, 0);
-        }
     }
 }
